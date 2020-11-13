@@ -1,4 +1,3 @@
-
 import pygame
 import random
 import os
@@ -22,10 +21,15 @@ img_folder = os.path.join(game_folder, "img")
 
 #PLAYER CLASS
 class Player(pygame.sprite.Sprite):
-    def ___init___(self):
-        pygame.sprite.sprite.__init__(self)
-        self.image = pygame.image.load(os.path.join(img_folder, "pl_jump.png")).convert()
-
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.image.load(os.path.join(img_folder, "Light_YagamiHD.jpg")).convert()
+        self.image = pygame.transform.scale(self.image,(100,100))
+        self.image.set_colorkey(BLACK)
+        self.rect = self.image.get_rect()
+        self.rect.center = (WIDTH / 2, HEIGHT / 2)
+        self.y_speed = 5
+    def update(self):
         #RETURNS A LIST, keystate, OF ALL PRESSED KEYS
         keystate = pygame.key.get_pressed()
 
@@ -36,8 +40,8 @@ class Player(pygame.sprite.Sprite):
         if keystate[pygame.K_LEFT]:
             self.rect.x += -5
 
-        if keystate[pygame.K_LEFT]:
-            slf.rect.y += -5
+        if keystate[pygame.K_UP]:
+            self.rect.y += -5
         if keystate[pygame.K_DOWN]:
             self.rect.y += 5
 
@@ -47,7 +51,7 @@ pygame.mixer.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("my Game")
 
-clock= pygame.time.clock()
+clock= pygame.time.Clock()
 
 #SPRITE GROUPS
 all_sprites = pygame.sprite.Group()
@@ -79,6 +83,7 @@ while running:
     pygame.display.flip()
 
 pygame.quit()
+
 
         
         
